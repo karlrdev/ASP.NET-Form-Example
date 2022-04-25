@@ -1,0 +1,41 @@
+﻿@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+    <form asp-controller="Home" asp-action="FormSubmit" method="post">
+        <input asp-for="FullName">
+        
+        <div class="row js-row">
+        @for (var i = 0; i < Model.UserEducation.Count(); i++)
+        {
+            <partial name="~/Views/Shared/dataRow.cshtml" model="new AddRowViewModel{ EducationList = Model.EducationList, Index= i, UserEducation = Model.UserEducation}" />
+        }
+        </div>
+        <button type="button" class="js-add-row">Add</button>
+        <button type="submit">Submit</button>
+    </form>
+
+
+
+</div>
+
+@section Scripts{
+<script>
+    $(document).ready(function(){
+        $(".js-add-row").click(function(){
+            let count = $("[data-count]").length;
+            console.log(count);
+            $.ajax(`/home/GetNewRow/?index=${count}`).done(function(data){
+                $(".js-row").append(data);
+            })
+        });
+    });
+</script>
+}

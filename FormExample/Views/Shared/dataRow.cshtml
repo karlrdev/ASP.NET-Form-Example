@@ -1,0 +1,10 @@
+﻿@model AddRowViewModel
+
+<div class="col-md-6" data-count>
+    <label>Name</label>
+    <select asp-for="UserEducation[Model.Index].Name" asp-items="Model.EducationList"></select>
+</div>
+<div class="col-md-6">
+    <label>Grade</label>
+    <input asp-for="UserEducation[Model.Index].Grade">
+</div>
